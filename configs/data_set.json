@@ -1,0 +1,10 @@
+{"IIT_roorkee": ["assist.sksunnymgcl@iitr.ac.in", "k2win21", "https://elibrary.mgcl.iitr.ac.in/", "Indian Institute of Technology Roorkee", "mgcl\\.iitr\\.ac\\.in", ["SA024", "SA111", "SA1371", "SA196", "SA226"]],
+  "IIT_indore": ["assist.rajesh@iiti.ac.in", "k2win21", "https://iiti.knimbus.com/user#/home", "Indian Institute of Technology Indore", "iiti\\.knimbus\\.com", ["SA002", "SA1929", "SA065", "SA070", "SA1008"]],
+  "flame": ["test1@flame.edu.in", "knimbus@123", "https://library.flame.edu.in", "Flame University", "flame\\.edu\\.in", ["SA024", "SA111", "SA1371", "SA196", "SA226"]],
+  "aiims": ["assist.refquery@aiims.edu", "k2win21", "https://aiims.knimbus.com", "All India Institute of Medical Science", "aiims\\.knimbus\\.com", ["SA024", "SA111", "SA1371", "SA196", "SA226"]],
+  "NITKS": ["assist.library@nitk.edu.in", "k2win21", "https://nitks.knimbus.com", "National Institute of Technology Karnataka Surathkal", "nitks\\.knimbus\\.com", []],
+  "Christ": ["assist.library@christuniversity.in", "k2win21", "https://christuniversity.knimbus.com", "Christ University", "christuniversity\\.knimbus\\.com", []],
+  "NITS": ["assist.nits.library@gmail.com", "k2win21", "https://nits.knimbus.com", "", "", []],
+  "Biblioteca Digital": ["assist.jmartinez@uh.ac.cr", "k2win21", "https://uh.knimbus.com", "Universidad Hispanoamericana", "uh\\.knimbus\\.com", []],
+  "BMU":["assist.jayadev.kumbar@bmu.edu.in","k2win21","https://bmu.knimbus.com","BML Munjal University","bmu\\.knimbus\\.com",[]]
+  }
