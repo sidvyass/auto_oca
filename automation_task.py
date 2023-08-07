@@ -15,7 +15,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-
+# TODO: CHANGE THIS TO YOUR SPECIFIC DRIVER
 os.environ['PATH'] += r"users/sidvyas/selenium_drivers"
 
 time_of_running = time.ctime()  # add this to final output
