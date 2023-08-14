@@ -24,6 +24,9 @@ list_x_paths = []  # list of all connectors
 names_all = []  # names of all connectors
 ebsco_codes_list = ['SA1424', 'SA1186', 'SA1016']
 
+# function which enable to run one or two tasks - checks how many processes and then returns the multiprocessing accordingly
+# user input functions
+
 
 class AutoOca2:
 

@@ -1,0 +1,16 @@
+{
+  "universities": [
+    {
+      "url": 0,
+      "Name": "IIT Roorkee",
+      "login_id": "assist.iitroorkee.com",
+      "password": ""
+    },
+    {
+      "url": 1,
+      "name": "aap",
+      "login_id": "assist.aap.com",
+      "password": ""
+    }
+  ]
+}

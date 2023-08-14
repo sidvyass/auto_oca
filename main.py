@@ -81,8 +81,10 @@ def multiprocessing_func(function, no_of_processes: int, data_list):
 
 
 if __name__ == "__main__":
-    load_json()  # appends the data to data_list_input
-    multiprocessing_func(main_loop, 5, data_list_input)
+    load_json()  # appends the data to data_list_input\
+    print(data_list_input)
+    # multiprocessing_func(main_loop, 1, data_list_input)
+    main_loop(data_list_input)
 
 
 
