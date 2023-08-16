@@ -1,19 +1,15 @@
 from automation_task import *
-import json
-import time
+import data_parser
 import multiprocessing
 
-# FIRST-make a main loop function which will iterate over each publisher DONE
-#      - retry function that is hit when the code breaks on the login/find_connectors
-# THIRD-data entry - sql or something robust that will save files even if the code breaks in the middle - SOLVE
-# LAST - functionality to run periodically DONE
+filepath = "/Users/sidvyas/PycharmProjects/auto_oca_final/configs/VTU.csv"  # put path here for the file you want to run (CSV OR JSON)
+# the file should contain the following format -
+#   name, username, password, url
+
+data_list_input = data_parser.check_filetype_run(filepath)
 
 
-data_list_input = []
-filepath = "configs/data_set2.json"  # only takes json input - put entire path here
-
-
-def main_loop(input_list):
+def main_loop(input_list):  # this needs to be able to open 5-6 windows and check after which it closes all of them
     """iterates over each university and gives a csv file as the output after the checks are done"""
     university_name = input_list[3]
     print(input_list, university_name, sep='\n')
@@ -29,29 +25,6 @@ def main_loop(input_list):
     except IndexError:
         website.data_return_csv(data_frame, f'{university_name}_oca')
         website.driver.close()
-
-
-def load_json():
-    """we will load a json file here and then parse it into a variable that python can use. Also checks if the data is correctly formatted"""
-    with open(filepath, 'r') as file:
-        data = json.load(file)
-
-        for university_name in data:
-            password = 'k2win21'
-
-            if data[university_name][1].startswith("assist."):
-                username = data[university_name][1]
-            else:
-                username = "assist." + data[university_name][1]
-            if data[university_name][3].startswith("https://"):
-                url = data[university_name][3]
-            else:
-                url = "https://" + data[university_name][3]
-
-            fuzzy_var = data[university_name][4]
-            regex_url = data[university_name][5]
-            data_list_input.append([username, password, url, fuzzy_var, regex_url])
-    return data_list_input
 
 
 def multiprocessing_func(function, no_of_processes: int, data_list):
@@ -76,18 +49,16 @@ def multiprocessing_func(function, no_of_processes: int, data_list):
                 process.join()
             x += 5  # increment to be able to run only 5 processes at a given time
     except IndexError:  # will always give due to the increment being an odd number - but covers all the inputs even in the len is odd or even
-        return None
+        print("completed")
     print("completed")
 
 
 if __name__ == "__main__":
-    load_json()  # appends the data to data_list_input\
-    print(data_list_input)
-    # multiprocessing_func(main_loop, 1, data_list_input)
-    main_loop(data_list_input)
-
-
-
-
-
-
+    user_input = input(f"Please check the following data and the format as it is stated\n Username, Password, URL, Name, Regex\n{data_list_input}")
+    if user_input == "Y" or "yes".casefold():
+        if len(data_list_input) == 1:  # 1 case cannot run any loops
+            main_loop(data_list_input[0])
+        else:
+            multiprocessing_func(main_loop, 5, data_list_input)
+    else:
+        print("terminated")

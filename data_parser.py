@@ -1,5 +1,6 @@
 import csv
 import json
+import re
 
 """CSV/json parser 
         CSV -> list (for input)"""
@@ -7,31 +8,26 @@ import json
 # NOTE: JSON format is given in the example.json file please do not make any changes to the format
 #       (the code will tell you if the format is wrong when it parses - "INCORRECT FORMAT - <type of file>")
 
-final_dict = {"universities": []}  # to write json files into
+final_list = []  # to write json files into
 filename = ""  # add later
+
+# input_list in the main function refers to this format -
+#       name, url, login_id, password
 
 
 def json_parse(jsonfile):
     with open(jsonfile, "r") as jsonfile:
         file = json.load(jsonfile)
         for row in file['universities']:
-            if row[14].startswith('https://'):
-                regex_url = r'\.'.join(row[14][8:].split('.'))
-            else:
-                regex_url = r'\.'.join(row[14].split('.'))
             fuzzy_var = row['name']
             username = row['login_id']
             password = row['password']
             url = row['url']  # not added to the example
+            # regex_url = r'\.'.join(url[8:].split('.'))
+            regex_url = "vtuconsortia\\.knimbus\\.com/"
             if username != '' and username != 'Skip for now':
-                final_dict['universities'].append({
-                    "name": fuzzy_var,
-                    "login_id": username,
-                    "password": password,
-                    "url": url,
-                    "regex_url": regex_url
-                })
-    print(final_dict)
+                final_list.append([username, password, url, fuzzy_var, regex_url])
+    return final_list
 
 
 def csv_parse(csvfile):
@@ -43,25 +39,15 @@ def csv_parse(csvfile):
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            username = row[15]
-            password = 'k2win21'
-            url = row[14]
+            username = row[2]
+            password = row[3]
+            url = row[1]
             fuzzy_var = row[0]
-            if row[14].startswith('https://'):
-                regex_url = r'\.'.join(row[14][8:].split('.'))
-            else:
-                regex_url = r'\.'.join(row[14].split('.'))
-            # list_append = [fuzzy_var, username, password, url, fuzzy_var, regex_url]
+            # regex_url = r'\.'.join(url[8:].split('.'))
+            regex_url = "vtuconsortia\\.knimbus\\.com/"
             if username != '' and username != 'Skip for now':
-                final_dict['universities'].append({
-                    "name": fuzzy_var,
-                    "login_id": username,
-                    "password": password,
-                    "url": url,
-                    "regex_url": regex_url
-                })
-
-    print(final_dict)
+                final_list.append([username, password, url, fuzzy_var, regex_url])
+    return final_list
 
 
 def check_filetype_run(file: str):
@@ -73,8 +59,4 @@ def check_filetype_run(file: str):
         csv_parse(file)
     else:
         print("NOT A VALID FILE")
-    pass
-
-
-if __name__ == "__main__":
-    check_filetype_run("/Users/sidvyas/PycharmProjects/auto_oca_final/configs/Gold Clients (with Passwords) (1).csv")
+    return final_list

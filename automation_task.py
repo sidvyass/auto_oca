@@ -177,11 +177,15 @@ class AutoOca2:
         print(list_final_output)
         data_frame.append(list_final_output)
 
-    def fuzzy_check(self, text):
+    @staticmethod
+    def fuzzy_check(text):
+        vtu_var1 = "VTU Consortium"
+        vtu_var2 = "Visvesvaraya Technological University"
         list1 = text.split("\n")
         for element in list1:
-            ratio = fuzz.token_set_ratio(self.fuzzy_var, element)
-            if ratio > 75:
+            ratio = fuzz.token_set_ratio(vtu_var1, element)
+            ratio_vtu2 = fuzz.token_set_ratio(vtu_var2, element)
+            if ratio > 75 or ratio_vtu2 > 75:
                 return "passed"
 
         return "failed"
