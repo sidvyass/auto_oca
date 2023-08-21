@@ -8,11 +8,11 @@ import re
 # NOTE: JSON format is given in the example.json file please do not make any changes to the format
 #       (the code will tell you if the format is wrong when it parses - "INCORRECT FORMAT - <type of file>")
 
-final_list = []  # to write json files into
-filename = ""  # add later
-
 # input_list in the main function refers to this format -
 #       name, url, login_id, password
+
+final_list = []
+filename = ""
 
 
 def json_parse(jsonfile):
@@ -52,10 +52,8 @@ def csv_parse(csvfile):
 
 def check_filetype_run(file: str):
     if file.endswith(".json"):
-        print("Working with a JSON file")
         json_parse(file)
     elif file.endswith(".csv"):
-        print("Working with a CSV file")
         csv_parse(file)
     else:
         print("NOT A VALID FILE")

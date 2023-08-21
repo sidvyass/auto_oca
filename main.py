@@ -1,7 +1,7 @@
 from automation_task import *
 import data_parser
 import multiprocessing
-
+# the file path needs to be a raw string
 filepath = "/Users/sidvyas/PycharmProjects/auto_oca_final/configs/VTU.csv"  # put path here for the file you want to run (CSV OR JSON)
 # the file should contain the following format -
 #   name, username, password, url
@@ -54,11 +54,14 @@ def multiprocessing_func(function, no_of_processes: int, data_list):
 
 
 if __name__ == "__main__":
-    user_input = input(f"Please check the following data and the format as it is stated\n Username, Password, URL, Name, Regex\n{data_list_input}")
+    print("[username, password, url, name, regex]")
+    for data in data_list_input:
+        print(data, "\n")
+    user_input = input(f"Please check the following data and the format\nType: (y/yes/no)\n")
     if user_input == "Y" or "yes".casefold():
         if len(data_list_input) == 1:  # 1 case cannot run any loops
             main_loop(data_list_input[0])
         else:
             multiprocessing_func(main_loop, 5, data_list_input)
-    else:
+    elif user_input == "n" or "no".casefold():
         print("terminated")

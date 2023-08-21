@@ -1,7 +1,6 @@
 import os
 import time
 import re
-import json
 import csv
 
 from thefuzz import fuzz
@@ -18,14 +17,11 @@ from selenium.webdriver.common.keys import Keys
 # TODO: CHANGE THIS TO YOUR SPECIFIC DRIVER
 os.environ['PATH'] += r"users/sidvyas/selenium_drivers"
 
-time_of_running = time.ctime()  # add this to final output
+time_of_running = time.ctime()
 data_frame = []  # final output
-list_x_paths = []  # list of all connectors
-names_all = []  # names of all connectors
+list_x_paths = []
+names_all = []
 ebsco_codes_list = ['SA1424', 'SA1186', 'SA1016']
-
-# function which enable to run one or two tasks - checks how many processes and then returns the multiprocessing accordingly
-# user input functions
 
 
 class AutoOca2:
@@ -112,7 +108,7 @@ class AutoOca2:
     def click_link(self, y):
         """click the link with the xpath provided to it"""
         try:
-            link = self.driver.find_element(By.XPATH, list_x_paths[y][1])  # pulling xpath - stored in find_all_connectors
+            link = self.driver.find_element(By.XPATH, list_x_paths[y][1])
             link.click()
             self.driver.implicitly_wait(5)
         except (NoSuchElementException, ElementClickInterceptedException, TimeoutException):
@@ -120,15 +116,14 @@ class AutoOca2:
 
     def running_checks(self, y):
         """Checks for multiple windows first. Then window switches and the checks run, after which driver returns to the original window"""
-        # multiple window checks
         windows = self.driver.window_handles
         if (len(windows) > 2) and (y <= 4):  # pop up check
             time.sleep(30)
         self.driver.switch_to.window(windows[1])
 
         start_time = time.time()
-        data = self.get_url_text()  # (RETURNS (text, url))?
-        if list_x_paths[y][0] in ebsco_codes_list:  # ebsco only check
+        data = self.get_url_text()
+        if list_x_paths[y][0] in ebsco_codes_list:
             self.ebsco_check(self.driver.current_url)
         else:
             self.check_url_text(*data, start_time, y=y)  # main check - y = index number we have to pull data from. (PRODUCES FINAL RESULT)
@@ -173,28 +168,20 @@ class AutoOca2:
         else:
             check_result.append("URL check failed")
         load_time = round(end_time-start_time)
-        list_final_output = [names_all[y], list_x_paths[y][0], load_time, *check_result]  # connector name
+        list_final_output = [names_all[y], list_x_paths[y][0], load_time, *check_result]
         print(list_final_output)
         data_frame.append(list_final_output)
 
     @staticmethod
     def fuzzy_check(text):
-        vtu_var1 = "VTU Consortium"
-        vtu_var2 = "Visvesvaraya Technological University"
-        list1 = text.split("\n")
-        for element in list1:
-            ratio = fuzz.token_set_ratio(vtu_var1, element)
-            ratio_vtu2 = fuzz.token_set_ratio(vtu_var2, element)
-            if ratio > 75 or ratio_vtu2 > 75:
-                return "passed"
-
-        return "failed"
+        vtu_var1, vtu_var2 = "VTU Consortium", "Visvesvaraya Technological University"
+        result = "passed" if vtu_var1 or vtu_var2 in text else "failed"
+        return result
 
     @staticmethod
     def ebsco_check(url):
         pattern = r"search\.ebscohost\.com"
-        match = re.search(pattern, url)
-        if match:
+        if re.search(pattern, url):
             "passed"
         else:
             "failed"
