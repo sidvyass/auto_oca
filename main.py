@@ -1,10 +1,11 @@
 from automation_task import *
 import data_parser
 import multiprocessing
-# the file path needs to be a raw string
-filepath = "/Users/sidvyas/PycharmProjects/auto_oca_final/configs/VTU.csv"  # put path here for the file you want to run (CSV OR JSON)
-# the file should contain the following format -
-#   name, username, password, url
+import json
+
+with open("config.json", "r") as configs:
+    data = json.load(configs)
+    filepath = data["configs"]["input file path"]
 
 data_list_input = data_parser.check_filetype_run(filepath)
 

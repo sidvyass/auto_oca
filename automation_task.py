@@ -2,6 +2,7 @@ import os
 import time
 import re
 import csv
+import json
 
 from thefuzz import fuzz
 from selenium import webdriver
@@ -14,8 +15,13 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+with open("/Users/sidvyas/PycharmProjects/auto_oca_final/config.json", "r") as config_file:
+    data = json.load(config_file)
+    driver_path = data["configs"]["driver path"]
+
 # TODO: CHANGE THIS TO YOUR SPECIFIC DRIVER
-os.environ['PATH'] += r"users/sidvyas/selenium_drivers"
+# os.environ['PATH'] += r"users/sidvyas/selenium_drivers"
+os.environ['PATH'] += driver_path
 
 time_of_running = time.ctime()
 data_frame = []  # final output

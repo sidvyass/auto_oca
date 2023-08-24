@@ -9,4 +9,3 @@ echo "Installing Python packages..."
 pip install -r requirements.txt
 
 echo "All Python packages have been installed successfully."
-
