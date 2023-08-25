@@ -15,7 +15,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-with open("/Users/sidvyas/PycharmProjects/auto_oca_final/config.json", "r") as config_file:
+with open("config.json", "r") as config_file:
     data = json.load(config_file)
     driver_path = data["configs"]["driver path"]
 
@@ -181,7 +181,12 @@ class AutoOca2:
     @staticmethod
     def fuzzy_check(text):
         vtu_var1, vtu_var2 = "VTU Consortium", "Visvesvaraya Technological University"
-        result = "passed" if vtu_var1 or vtu_var2 in text else "failed"
+        if vtu_var1 in text:
+            result = "passed"
+        elif vtu_var2 in text:
+            result = "passed"
+        else:
+            result = "failed"
         return result
 
     @staticmethod
